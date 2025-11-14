@@ -1,7 +1,10 @@
 main: me.SuperRonanCraft.BetterRTP.BetterRTP
 version: ${project.version}
 name: BetterRTP
-author: SuperRonanCraft
+description: Personal Purpur 1.21.10 build for AlexahMae's server (no support provided)
+authors:
+    - SuperRonanCraft
+    - AlexahMae
 folia-supported: true #As of 3.6.8 thanks to LOOHP#6007, TechnicallyCoded#9095 and loving11ish#2066
 softdepend:
     - Vault

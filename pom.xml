@@ -7,19 +7,14 @@
     <groupId>me.SuperRonanCraft</groupId>
     <artifactId>BetterRTP</artifactId>
     <packaging>jar</packaging>
-    <version>3.6.13</version>
+    <version>3.7.0-alexahmae</version>
 
     <!-- Upload patches to https://repo.ronanplugins.com/#/ -->
 
     <properties>
-        <!--
-            Target Java 17 by default so the project can be built on the JDKs
-            that most server owners already have installed.  Purpur 1.21 still
-            runs these class files just fine under Java 21, and builders that do
-            want to emit Java 21 bytecode can override the property via
-            `-Dmaven.compiler.release=21`.
-        -->
-        <maven.compiler.release>17</maven.compiler.release>
+        <!-- Default to classic source/target; pass -Dmaven.compiler.release=XX to opt into the release profile. -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -35,6 +30,25 @@
                         <version>3.2.2</version>
                         <configuration>
                             <outputDirectory>../../Java/plugins</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>compiler-release</id>
+            <activation>
+                <property>
+                    <name>maven.compiler.release</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration combine.self="override">
+                            <release>${maven.compiler.release}</release>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -93,7 +107,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
                 <configuration>
-                    <release>${maven.compiler.release}</release>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>

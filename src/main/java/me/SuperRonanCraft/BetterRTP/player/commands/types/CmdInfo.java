@@ -140,7 +140,8 @@ public class CmdInfo implements RTPCommand, RTPCommandHelpable {
     //World
     public static void sendInfoWorld(CommandSender sendi, List<String> list, String label, String[] args) { //Send info
         boolean upload = Arrays.asList(args).contains("_UPLOAD_");
-        list.add(0, "&e&m-----&6 BetterRTP &8| Info &e&m-----");
+        list.add(0, "&e&m-----&6 BetterRTP (AlexahMae Build) &8| Info &e&m-----");
+        list.add(1, "&7Personal build for &dAlexahMae&7; bug reports are closed. Fork it if you need support.");
         list.forEach(str -> list.set(list.indexOf(str), Message.color(str)));
 
         String cmd = "/" + label + " " + String.join(" ", args);
