@@ -33,7 +33,7 @@ Titles:
     SendMessage: true
 Particles: #Use `rtp info particles` for a list of particles
   Enabled: true
-  Type: #list of particle types at https://github.com/ByteZ1337/ParticleLib/blob/master/src/main/java/xyz/xenondevs/particle/ParticleEffect.java
+  Type: #list of particle types at https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html
     - 'EXPLOSION_NORMAL'
     - 'CRIT'
   Shape: 'EXPLODE' #Types available are "Scan, Teleport and Explode", or use `/rtp info shapes` for a list of shapes

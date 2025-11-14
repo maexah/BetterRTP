@@ -9,15 +9,21 @@ feel free to fork one of the language files and help translate!
 ## Libraries
 BetterRTP uses and is compiled with the following libraries:
 
-- [ParticleLib](https://github.com/ByteZ1337/ParticleLib) (included) - Particles library by ByteZ1337. Find all supported particles [here](https://github.com/ByteZ1337/ParticleLib/blob/master/src/main/java/xyz/xenondevs/particle/ParticleEffect.java)
 - [PaperLib](https://github.com/PaperMC/PaperLib) (included) - Library for interfacing with PaperMC specific APIs, used for async chunk loading.
 - [FoliaLib](https://github.com/TechnicallyCoded/FoliaLib) (included) - Library for interfacing with Folia specific APIs, used for cross-platform timers.
 
 ## Build instructions on Ubuntu
 
+```bash
 mvn clean install
+```
 
-The file will be in the Target file.
+BetterRTP now targets Java 17 bytecode by default so that you can build the
+plugin with either a Java 17 or Java 21 toolchain.  If you would prefer to
+generate Java 21 class files, pass `-Dmaven.compiler.release=21` to the Maven
+command above.  Either artifact will run fine on Purpur 1.21's Java 21 runtime.
+
+The built JAR will be placed in the `target/` directory.
 
 ## Where's the Wiki?  
 The wiki is available [here](../../wiki)!
