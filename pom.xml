@@ -12,7 +12,14 @@
     <!-- Upload patches to https://repo.ronanplugins.com/#/ -->
 
     <properties>
-        <maven.compiler.release>21</maven.compiler.release>
+        <!--
+            Target Java 17 by default so the project can be built on the JDKs
+            that most server owners already have installed.  Purpur 1.21 still
+            runs these class files just fine under Java 21, and builders that do
+            want to emit Java 21 bytecode can override the property via
+            `-Dmaven.compiler.release=21`.
+        -->
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

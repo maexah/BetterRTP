@@ -14,9 +14,16 @@ BetterRTP uses and is compiled with the following libraries:
 
 ## Build instructions on Ubuntu
 
+```bash
 mvn clean install
+```
 
-The file will be in the Target file.
+BetterRTP now targets Java 17 bytecode by default so that you can build the
+plugin with either a Java 17 or Java 21 toolchain.  If you would prefer to
+generate Java 21 class files, pass `-Dmaven.compiler.release=21` to the Maven
+command above.  Either artifact will run fine on Purpur 1.21's Java 21 runtime.
+
+The built JAR will be placed in the `target/` directory.
 
 ## Where's the Wiki?  
 The wiki is available [here](../../wiki)!
