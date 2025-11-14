@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -38,7 +39,6 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import xyz.xenondevs.particle.ParticleEffect;
 
 public class CmdInfo implements RTPCommand, RTPCommandHelpable {
 
@@ -109,7 +109,7 @@ public class CmdInfo implements RTPCommand, RTPCommandHelpable {
         List<String> info = new ArrayList<>();
         // BetterRTP pl = BetterRTP.getInstance();
 
-        for (ParticleEffect eff : ParticleEffect.VALUES) {
+        for (Particle eff : Particle.values()) {
             if (info.isEmpty() || info.size() % 2 == 0) {
                 info.add("&7" + eff.name() + "&r");
             } else
@@ -140,7 +140,8 @@ public class CmdInfo implements RTPCommand, RTPCommandHelpable {
     //World
     public static void sendInfoWorld(CommandSender sendi, List<String> list, String label, String[] args) { //Send info
         boolean upload = Arrays.asList(args).contains("_UPLOAD_");
-        list.add(0, "&e&m-----&6 BetterRTP &8| Info &e&m-----");
+        list.add(0, "&e&m-----&6 BetterRTP (AlexahMae Build) &8| Info &e&m-----");
+        list.add(1, "&7Personal build for &dAlexahMae&7; bug reports are closed. Fork it if you need support.");
         list.forEach(str -> list.set(list.indexOf(str), Message.color(str)));
 
         String cmd = "/" + label + " " + String.join(" ", args);
