@@ -9,15 +9,22 @@ feel free to fork one of the language files and help translate!
 ## Libraries
 BetterRTP uses and is compiled with the following libraries:
 
-- [ParticleLib](https://github.com/ByteZ1337/ParticleLib) (included) - Particles library by ByteZ1337. Find all supported particles [here](https://github.com/ByteZ1337/ParticleLib/blob/master/src/main/java/xyz/xenondevs/particle/ParticleEffect.java)
 - [PaperLib](https://github.com/PaperMC/PaperLib) (included) - Library for interfacing with PaperMC specific APIs, used for async chunk loading.
 - [FoliaLib](https://github.com/TechnicallyCoded/FoliaLib) (included) - Library for interfacing with Folia specific APIs, used for cross-platform timers.
 
 ## Build instructions on Ubuntu
 
+```bash
 mvn clean install
+```
 
-The file will be in the Target file.
+By default the project compiles with the classic `-source`/`-target` flags so it
+works on whichever JDK you already have installed (even ones that do not support
+the `--release` option).  If you want to emit a specific bytecode level, pass a
+release flag such as `-Dmaven.compiler.release=17` or
+`-Dmaven.compiler.release=21` to the Maven command above.
+
+The built JAR will be placed in the `target/` directory.
 
 ## Where's the Wiki?  
 The wiki is available [here](../../wiki)!

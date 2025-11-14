@@ -12,7 +12,9 @@
     <!-- Upload patches to https://repo.ronanplugins.com/#/ -->
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <!-- Default to classic source/target; pass -Dmaven.compiler.release=XX to opt into the release profile. -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -28,6 +30,25 @@
                         <version>3.2.2</version>
                         <configuration>
                             <outputDirectory>../../Java/plugins</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>compiler-release</id>
+            <activation>
+                <property>
+                    <name>maven.compiler.release</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration combine.self="override">
+                            <release>${maven.compiler.release}</release>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -86,12 +107,25 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Force a healthy copy of the Kyori legacy JSON serializer; the
+                 artifact hosted on some third-party repos is truncated, which
+                 causes ZipException errors under Java 21 -->
+            <dependency>
+                <groupId>net.kyori</groupId>
+                <artifactId>adventure-text-serializer-gson-legacy-impl</artifactId>
+                <version>4.14.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <!-- CAN BE UNCOMMENTED IF YOU HAVE ACCESS TO THE REPO -->
@@ -167,14 +201,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Spigot Stuff -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.21.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- Vault -->
@@ -273,20 +300,11 @@
             <version>97b96c9</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Particles Library
-        https://github.com/ByteZ1337/ParticleLib
-        (https://github.com/ByteZ1337/ParticleLib/blob/master/src/main/java/xyz/xenondevs/particle/ParticleEffect.java) -->
-        <dependency>
-            <groupId>xyz.xenondevs</groupId>
-            <artifactId>particle</artifactId>
-            <version>1.8.4</version>
-            <scope>compile</scope>
-        </dependency>
         <!-- Lombok Support (@Getter & @Setter)-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <version>1.18.34</version>
             <scope>provided</scope>
         </dependency>
         <!-- EssentialsX -->

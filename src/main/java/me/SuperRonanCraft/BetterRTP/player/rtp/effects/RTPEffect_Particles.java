@@ -4,24 +4,18 @@ import me.SuperRonanCraft.BetterRTP.BetterRTP;
 import me.SuperRonanCraft.BetterRTP.references.file.FileOther;
 import me.SuperRonanCraft.BetterRTP.versions.AsyncHandler;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-import xyz.xenondevs.particle.ParticleEffect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//---
-//Credit to @ByteZ1337 for ParticleLib - https://github.com/ByteZ1337/ParticleLib
-//
-//Use of particle creation
-//---
-
 public class RTPEffect_Particles {
 
     private boolean enabled;
-    private final List<ParticleEffect> effects = new ArrayList<>();
+    private final List<Particle> effects = new ArrayList<>();
     private String shape;
     private final int precision = 16;
 
@@ -48,11 +42,11 @@ public class RTPEffect_Particles {
         try {
             for (String type : types) {
                 typeTrying = type;
-                effects.add(ParticleEffect.valueOf(type.toUpperCase()));
+                effects.add(Particle.valueOf(type.toUpperCase()));
             }
         } catch (IllegalArgumentException | NullPointerException e) {
             effects.clear();
-            effects.add(ParticleEffect.ASH);
+            effects.add(Particle.ASH);
             getPl().getLogger().severe("The particle '" + typeTrying + "' doesn't exist! Default particle enabled... " +
                     "Try using '/rtp info particles' to get a list of available particles");
         } catch (ExceptionInInitializerError | NoClassDefFoundError e2) {
@@ -94,8 +88,8 @@ public class RTPEffect_Particles {
         Location loc = p.getLocation().add(new Vector(0, 1.75, 0));
         for (int index = 1; index < precision; index++) {
             Vector vec = getVecCircle(index);
-            for (ParticleEffect effect : effects) {
-                effect.display(loc.clone().add(vec), new Vector(0, -0.125, 0), .15f, 0, null, p);
+            for (Particle effect : effects) {
+                displayDirectionalParticle(p, effect, loc.clone().add(vec), new Vector(0, -0.125, 0), 0.15d);
             }
         }
     }
@@ -106,8 +100,8 @@ public class RTPEffect_Particles {
             for (int index = 1; index < precision; index++) {
                 //double yran = ran.nextGaussian() * pHeight;
                 Vector vec = getVecCircle(index).add(new Vector(0, y, 0));
-                for (ParticleEffect effect : effects) {
-                    effect.display(loc.clone().add(vec), p);
+                for (Particle effect : effects) {
+                    displayStaticParticle(p, effect, loc.clone().add(vec));
                 }
             }
     }
@@ -116,8 +110,8 @@ public class RTPEffect_Particles {
         Location loc = p.getLocation().add(new Vector(0, 1, 0));
         for (int index = 1; index < precision; index++) {
             Vector vec = getVecCircle(index);
-            for (ParticleEffect effect : effects) {
-                effect.display(loc.clone().add(vec), vec, 1.5f, 0, null, p);
+            for (Particle effect : effects) {
+                displayDirectionalParticle(p, effect, loc.clone().add(vec), vec, 1.5d);
             }
         }
     }
@@ -136,5 +130,13 @@ public class RTPEffect_Particles {
 
     private BetterRTP getPl() {
         return BetterRTP.getInstance();
+    }
+
+    private void displayStaticParticle(Player player, Particle particle, Location location) {
+        player.spawnParticle(particle, location, 1, 0, 0, 0, 0);
+    }
+
+    private void displayDirectionalParticle(Player player, Particle particle, Location location, Vector direction, double speed) {
+        player.spawnParticle(particle, location, 0, direction.getX(), direction.getY(), direction.getZ(), speed);
     }
 }
